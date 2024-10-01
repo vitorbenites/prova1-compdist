@@ -7,6 +7,7 @@ services:
       SECRET_KEY: secret_key
       DATABASE_TYPE: mysql
       DATABASE_NAME: users
+      MYSQL_HOST: db_mysql
       MYSQL_PORT: "3306"
       ADMIN_USER: admin # Mesmo valor de MYSQL_USER
       ADMIN_PASSWORD: admin # Mesmo valor de MYSQL_PASSWORD

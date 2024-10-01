@@ -16,8 +16,9 @@ ENV ADMIN_USER=admin
 ENV ADMIN_PASSWORD=admin
 
 # Variáveis de ambiente referentes ao mysql
-ENV MYSQL_PORT=3306
-ENV DATABASE_URL_MYSQL=mysql://${ADMIN_USER}:${ADMIN_PASSWORD}@mysql:${MYSQL_PORT}/${DATABASE_NAME}
+ENV MYSQL_HOST=db_mysql # Nome do container do MySQL
+ENV MYSQL_PORT=3306 # Porta do container do MySQL
+ENV DATABASE_URL_MYSQL=mysql://${ADMIN_USER}:${ADMIN_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${DATABASE_NAME}
 
 # Cópia do arquivo de dependências
 COPY ./app/requirements.txt requirements.txt
