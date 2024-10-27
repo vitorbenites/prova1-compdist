@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify
 from src.models.profile import Profile
 from src.auth import auth
-from src.log import log
+from src.logger import log
 
 # Blueprint para rotas públicas e de usuário
 index_blueprint = Blueprint('index', __name__)

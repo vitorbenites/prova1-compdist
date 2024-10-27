@@ -4,11 +4,11 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from werkzeug.exceptions import HTTPException
 from src.models.profile import Profile
-from src.auth import auth
+from src.auth import auth, validate_authentication
 from src.database import db
 
 # Blueprint para rotas de administração
-admin_blueprint = Blueprint('admin', __name__)
+admin_blueprint = Blueprint('admin_routes', __name__)
 
 
 # Classe para personalizar a exibição de modelos no painel Admin
@@ -30,7 +30,7 @@ class MyModelView(ModelView):
             password = None
 
         if username and password:
-            if auth.validate_authentication(username, password) and username in app.config.get('ADMINISTRATORS'):
+            if validate_authentication(username, password):
                 return True
             else:
                 raise AuthException('Not authenticated.')
@@ -50,4 +50,4 @@ class ProfileView(MyModelView):
 
 # Configuração do Flask-Admin
 admin = Admin(name='Super App', template_mode='bootstrap4')
-admin.add_view(MyModelView(Profile, db.session))
+admin.add_view(ProfileView(Profile, db.session))
