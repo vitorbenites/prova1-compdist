@@ -9,7 +9,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import HTTPException
 
 # Application log
-logging.basicConfig(format='%(asctime)s - %(message)s', filename="log/app.log", level=logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(message)s',
+                    filename="log/app.log", level=logging.INFO)
 log = logging.getLogger()
 
 # Web Application name
@@ -38,7 +39,8 @@ migrate = Migrate(app, db)
 
 class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False, index=True)
+    username = db.Column(db.String(20), unique=True,
+                         nullable=False, index=True)
     password = db.Column(db.String(32), nullable=False)
     email = db.Column(db.String(65), unique=True, nullable=True)
     registered = db.Column(db.DateTime(timezone=True), default=db.func.now())
