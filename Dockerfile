@@ -1,4 +1,4 @@
-FROM python:3.13
+FROM python:3.12.7-alpine3.20
 
 # Diretório da aplicação dentro do container
 WORKDIR /app
@@ -6,7 +6,6 @@ WORKDIR /app
 # Variável do tipo do banco de dados
 ENV DATABASE_TYPE=sqlite
 ENV DATABASE_NAME=users
-ENV DATABASE_URL=sqlite:///${DATABASE_NAME}.sqlite3
 
 # Variável de chave do Flask
 ENV SECRET_KEY=secret
@@ -16,9 +15,8 @@ ENV ADMIN_USER=admin
 ENV ADMIN_PASSWORD=admin
 
 # Variáveis de ambiente referentes ao mysql
-ENV MYSQL_HOST=db_mysql # Nome do container do MySQL
-ENV MYSQL_PORT=3306 # Porta do container do MySQL
-ENV DATABASE_URL_MYSQL=mysql://${ADMIN_USER}:${ADMIN_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${DATABASE_NAME}
+ENV MYSQL_HOST=db_mysql
+ENV MYSQL_PORT=3306
 
 # Cópia do arquivo de dependências
 COPY ./app/requirements.txt requirements.txt
@@ -33,4 +31,4 @@ EXPOSE 8080
 COPY ./app .
 
 # Execução do serviço
-CMD ["python","app.py"]
+CMD ["python","run.py"]

@@ -1,4 +1,5 @@
 # src/views/admin.py
+import os
 from flask import Blueprint, redirect, Response
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
@@ -30,7 +31,7 @@ class MyModelView(ModelView):
             password = None
 
         if username and password:
-            if validate_authentication(username, password):
+            if validate_authentication(username, password) and username == os.getenv('ADMIN_USER'):
                 return True
             else:
                 raise AuthException('Not authenticated.')

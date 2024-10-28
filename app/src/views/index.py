@@ -11,19 +11,19 @@ index_blueprint = Blueprint('index', __name__)
 @index_blueprint.route('/')
 @auth.login_required
 def index():
+    # Obtém o nome do usuário atual
     user = auth.current_user()
 
+    if user is None:
+        return jsonify({"error": "User not authenticated"}), 401
+
     # Verifica se o usuário existe no banco de dados
-    user_db = Profile.query.filter(Profile.username == user)
+    user_db = Profile.query.filter_by(username=user).first()
 
-    user_list = False
-    try:
-        user_list = user_db.all()[0]
-    except IndexError:
-        pass
-
-    if user_list:
+    if user_db:
         message_info = f"Usuário {user} acessou o index."
         response = {"success": message_info}
         log.info(message_info)
         return jsonify(response)
+    else:
+        return jsonify({"error": "User not found in database"}), 404
