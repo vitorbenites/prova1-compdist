@@ -1,6 +1,7 @@
 services:
   app:
     build:
+      image: vitorbenites/compdistapp:1.0
       context: .
     restart: always
     environment:

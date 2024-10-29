@@ -21,7 +21,7 @@ def index():
     user_db = Profile.query.filter_by(username=user).first()
 
     if user_db:
-        message_info = f"Usuário {user} acessou o index."
+        message_info = f"Usuario {user} acessou o index."
         response = {"success": message_info}
         log.info(message_info)
         return jsonify(response)
