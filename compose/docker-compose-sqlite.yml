@@ -1,0 +1,16 @@
+services:
+  app:
+    image: vitorbenites/compdistapp:1.0
+    container_name: compdistapp
+    restart: unless-stopped
+    environment:
+      SECRET_KEY: secret_key
+      DATABASE_TYPE: sqlite
+      DATABASE_NAME: users
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: admin
+    volumes:
+      - ./log:/app/log
+      - ./database:/app/instance
+    ports:
+      - 8080:8080

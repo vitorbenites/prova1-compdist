@@ -1,8 +1,5 @@
 services:
   app:
-    build: 
-      context: .
-      dockerfile: Dockerfile
     image: vitorbenites/compdistapp:1.0
     container_name: compdistapp
     restart: unless-stopped
