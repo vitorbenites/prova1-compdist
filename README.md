@@ -53,7 +53,8 @@ Docker compose:
 services:
   app:
     image: vitorbenites/compdistapp:1.0
-    restart: always
+    container_name: compdistapp
+    restart: unless-stopped
     environment:
       SECRET_KEY: secret_key
       DATABASE_TYPE: sqlite
@@ -75,15 +76,16 @@ Docker compose:
 services:
   app:
     image: vitorbenites/compdistapp:1.0
-    restart: always
+    container_name: compdistapp
+    restart: unless-stopped
     environment:
       SECRET_KEY: secret_key
       DATABASE_TYPE: mysql
-      DATABASE_NAME: users
+      DATABASE_NAME: users # Mesmo valor de MYSQL_DATABASE
       MYSQL_HOST: db_mysql
       MYSQL_PORT: "3306"
-      ADMIN_USER: admin
-      ADMIN_PASSWORD: admin
+      ADMIN_USER: admin # Mesmo valor de MYSQL_USER
+      ADMIN_PASSWORD: admin # Mesmo valor de MYSQL_PASSWORD
     volumes:
       - ./log:/app/log
     ports:
@@ -95,12 +97,13 @@ services:
 
   db_mysql:
     image: mysql:9.1
+    container_name: compdistapp_db
     restart: always
     environment:
       MYSQL_DATABASE: users
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: admin # Mesmo valor de ADMIN_USER
-      MYSQL_PASSWORD: admin # Mesmo valor de ADMIN_PASSWORD
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
     volumes:
       - ./database:/var/lib/mysql
     ports:
@@ -110,5 +113,6 @@ services:
 
 networks:
   appnet:
+    name: compdistapp_net
     driver: bridge
 ```
